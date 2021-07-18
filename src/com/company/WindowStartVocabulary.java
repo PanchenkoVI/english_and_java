@@ -1,44 +1,79 @@
 package com.company;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 
-class WindowStartVocabulary extends JFrame {
-    //    private int voron = 0;
-    private JLabel countLabel;
-    private JButton WSExit;
-    private JButton WSENglishLanguage;
-    private JButton WSJava;
+class WindowStartVocabulary {
 
     public WindowStartVocabulary() {
-        super("VOCABULARY");
-        WSENglishLanguage = new JButton("English");
-        WSJava = new JButton("Java");
-        WSExit = new JButton("Exit");
-
-        WSExit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JFrame frame = new JFrame("PHOENIX");
+                frame.add(new MenuPane());
+                frame.pack();
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
             }
         });
-        WSENglishLanguage.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-        WSJava.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-        //Подготавливаем временные компоненты
-        JPanel buttonsPanel = new JPanel(new FlowLayout());
+    }
 
-        buttonsPanel.add(WSENglishLanguage);
-        buttonsPanel.add(WSJava);
-        buttonsPanel.add(WSExit);
+    public class MenuPane extends JPanel {
 
-        add(buttonsPanel, BorderLayout.SOUTH);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        private JButton MJava;
+        private JButton MEnglish;
+        private JButton MExit;
+
+        public MenuPane() {
+
+            setBorder(new EmptyBorder(10, 10, 10, 10));
+            setLayout(new GridBagLayout());
+
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridwidth = GridBagConstraints.REMAINDER;
+            gbc.anchor = GridBagConstraints.NORTH;
+
+            JLabel background=new JLabel(new ImageIcon("jpeg/3.png"));
+            add(background);
+            background.setLayout(new GridBagLayout());
+
+            gbc.anchor = GridBagConstraints.CENTER;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+
+
+            background.add(MJava = new JButton("Java"), gbc);
+            background.add(MEnglish = new JButton("English"), gbc);
+            background.add(MExit = new JButton("Exit"), gbc);
+
+            MExit.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.exit(0);
+                }
+            });
+
+            MJava.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.exit(0);
+                }
+            });
+            MEnglish.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.exit(0);
+                }
+            });
+
+            gbc.weighty = 1;
+            add(background, gbc);
+            background.setVisible(true);
+        }
     }
 }
